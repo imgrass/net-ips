@@ -61,3 +61,39 @@ function build_ns_with_macvlan() {
     ip netns exec $NS1 ip link set dev $mv1 up
     ip netns exec $NS2 ip link set dev $mv2 up
 }
+
+function build_ns_with_ipvlan() {
+    # parse $@
+    NS1=$1
+    NS2=$2
+    parent=$3
+    iv1=$4
+    iv2=$5
+
+    ip netns add $NS1
+    ip netns add $NS2
+
+    #create the ipvlan link attaching it to the parent host
+    ip link add $iv1 link $parent type ipvlan mode l2
+    ip link add $iv2 link $parent type ipvlan mode l2
+
+    #move the new ifs to the new namespace
+    ip link set $iv1 netns $NS1
+    ip link set $iv2 netns $NS2
+
+    #bring the two ifs up
+    ip netns exec $NS1 ip link set dev $iv1 up
+    ip netns exec $NS2 ip link set dev $iv2 up
+
+    #set ip addresses
+    ip netns exec $NS1 ip addr add 192.168.1.10/24 dev $iv1
+    ip netns exec $NS2 ip addr add 192.168.1.20/24 dev $iv2
+
+    #bring the two ifs up
+    ip netns exec $NS1 ip link set dev $iv1 up
+    ip netns exec $NS2 ip link set dev $iv2 up
+}
+
+function build_ns_with_fwmark() {
+    echo "build_ns_with_fwmark success"
+}

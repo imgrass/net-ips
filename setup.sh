@@ -20,9 +20,13 @@ v_peer2="adc1_veth"
 parent="enp6s0"
 mv1="adc_macvlan0"
 mv2="adc_macvlan1"
+#***********************
+# for macvlan
+iv1="adc_ipvlan0"
+iv2="adc_ipvlan1"
 #==============================================================
 
-switch="macvlan"
+switch="ipvlan"
 source ./func/sub_fun.sh
 case $switch in
     "veth")
@@ -32,6 +36,14 @@ case $switch in
     "macvlan")
         build_ns="build_ns_with_macvlan\
                   $NS1 $NS2 $parent $mv1 $mv2"
+        ;;
+    "ipvlan")
+        build_ns="build_ns_with_ipvlan\
+                  $NS1 $NS2 $parent $iv1 $iv2"
+        ;;
+    "fwmark")
+        build_ns="build_ns_with_fwmark\
+                  "
         ;;
     *)
         ;;
