@@ -17,7 +17,7 @@ v_peer2="adc1_veth"
 
 #***********************
 # for macvlan
-parent="enp6s0"
+parent="ens2"
 mv1="adc_macvlan0"
 mv2="adc_macvlan1"
 #***********************
