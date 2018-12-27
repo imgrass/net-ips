@@ -2,8 +2,18 @@
 // notice: <${ip version}-${namespace}-${table}-${chain}>
 //         you can find corresponding infos by command as follow:
 		$ ip netns exec ${namespace} ip${version}tables -t ${table} -nvL --line-number
+// tcp
 
-// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   |          SYN J                |                     
+   |------------------------------>|                    
+   |      ACK J+1 , SYN k          |                    
+   |<------------------------------|                    
+   |          ACK k+1              |                    
+   |------------------------------>|                    
+   |                               |                    
+  client                         server  
+ 10.21.2.2                      10.21.0.4       
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   
 // tcp:1  from(10.21.2.2) --SYN--> to(10.21.0.4)
 
 x<-alb1_fee_1-raw-PREROUTING>IN=eth3.116 OUT= MAC=fa:16:3e:03:ac:86:fa:16:3e:c0:54:c2:08:00:45:00:00:3c SRC=10.21.2.2 DST=10.21.0.4 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=30368 DF PROTO=TCP SPT=54234 DPT=25507 WINDOW=29200 RES=0x00 SYN URGP=0 
