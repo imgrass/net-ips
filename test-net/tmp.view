@@ -1,0 +1,650 @@
+start test net ...
+Thu Dec 27 08:07:43 UTC 2018
+xxx===================================
+ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:99:47:a2 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.2.4/24 brd 192.168.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fe99:47a2/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:e6:f7:35 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.101.6/24 brd 192.168.101.255 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fee6:f735/64 scope link 
+       valid_lft forever preferred_lft forever
+4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:a1:47:13 brd ff:ff:ff:ff:ff:ff
+    inet 10.2.0.12/24 brd 10.2.0.255 scope global eth2
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fea1:4713/64 scope link 
+       valid_lft forever preferred_lft forever
+5: eth3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:03:ac:86 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.0.16/24 brd 10.1.0.255 scope global eth3
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fe03:ac86/64 scope link 
+       valid_lft forever preferred_lft forever
+6: eth4: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fa:16:3e:17:3f:2e brd ff:ff:ff:ff:ff:ff
+    inet 192.168.3.7/24 brd 192.168.3.255 scope global eth4
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fe17:3f2e/64 scope link 
+       valid_lft forever preferred_lft forever
+7: adc_ipvlan0@eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1
+    link/ether 06:00:00:ff:00:01 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::400:1ff:fe04:1/128 scope link 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::400:ff:feff:1/64 scope link 
+       valid_lft forever preferred_lft forever
+8: ip6tnl0@NONE: <NOARP> mtu 1452 qdisc noop state DOWN group default qlen 1
+    link/tunnel6 :: brd ::
+11: alb1@adc_ipvlan0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1452 qdisc noqueue state UNKNOWN group default qlen 1
+    link/tunnel6 fe80::400:1ff:fe04:1 peer fc00::800
+    inet 10.21.0.4/32 scope global alb1
+       valid_lft forever preferred_lft forever
+    inet6 fc00::a15:1/128 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::41:aaff:fe6c:9e33/64 scope link 
+       valid_lft forever preferred_lft forever
+12: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 02:42:ba:c8:ce:f3 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 scope global docker0
+       valid_lft forever preferred_lft forever
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 fc00::800/128 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ip6tnl0@NONE: <NOARP> mtu 1452 qdisc noop state DOWN group default qlen 1
+    link/tunnel6 :: brd ::
+3: adc_tun_1@adc_ipvlan0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1452 qdisc noqueue state UNKNOWN group default qlen 1
+    link/tunnel6 fc00::800 peer fe80::400:1ff:fe04:1
+    inet6 fe80::f00e:d8ff:fe30:b342/64 scope link 
+       valid_lft forever preferred_lft forever
+9: eth3.116@if5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether fa:16:3e:03:ac:86 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.21.2.11/24 brd 10.21.2.255 scope global eth3.116
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816:3eff:fe03:ac86/64 scope link 
+       valid_lft forever preferred_lft forever
+13: adc_ipvlan0@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1
+    link/ether 06:00:01:01:00:01 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet6 fe80::400:1ff:fe01:1/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+xxx===================================
+iptables -t filter -nvL --line-number
+Chain INPUT (policy DROP 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1     364K   25M LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-INPUT>"
+2       37  1712 ACCEPT     all  --  alb1   *       0.0.0.0/0            0.0.0.0/0           
+3     736K   48M ACCEPT     all  --  eth0   *       0.0.0.0/0            0.0.0.0/0           
+4        0     0 drp:bw_listed  all  --  *      *       0.0.0.0/0            0.0.0.0/0            match-set blacklist-vr0 src,src
+5     2791  789K ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0           
+6        0     0 ACCEPT     all  --  eth0   *       0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+7        0     0 ACCEPT     tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x3F/0x02
+8       74  5624 gen:nontcp !tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           
+9        0     0 gen:tcp    tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           
+10       0     0 gen:icmp   icmp --  *      *       0.0.0.0/0            0.0.0.0/0           
+11       0     0 ACCEPT     udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:42000
+
+Chain FORWARD (policy DROP 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-FORWARD>"
+2        0     0 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+3        0     0 DOCKER-ISOLATION  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+4        0     0 ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+5        0     0 DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+6        0     0 ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+7        0     0 ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
+
+Chain OUTPUT (policy ACCEPT 1333 packets, 387K bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1     312K  867M LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-OUTPUT>"
+2        0     0 ACCEPT     all  --  *      evip_macvlan0  0.0.0.0/0            0.0.0.0/0           
+3     654K 1413M ACCEPT     all  --  *      eth0    0.0.0.0/0            0.0.0.0/0           
+
+Chain DOCKER (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-DOCKER>"
+
+Chain DOCKER-ISOLATION (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-DOCKER-ISOLATI"
+2        0     0 RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain DOCKER-USER (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-DOCKER-USER>"
+2        0     0 RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:bw_listed (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 2/min burst 5 LOG flags 0 level 4 prefix "FW bw_listed VR=0 "
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:drop (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW dropped_pkt VR=0 "
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:flags (9 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW tcp_flags VR=0 "
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:invalid (3 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW invalid_pkt VR=0 "
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:rate (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 drp:rate_continue  all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: up to 1/min burst 1 mode srcip-srcport-dstip-dstport
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain drp:rate_continue (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 5/min burst 5 LOG flags 0 level 6 prefix "FW rate_limit VR=0 "
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain gen:icmp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 ACCEPT     icmp --  *      *       0.0.0.0/0            0.0.0.0/0            icmptype 3 code 4
+
+Chain gen:nontcp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1       74  5624 ACCEPT     all  --  eth1   *       0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2        0     0 drp:invalid  udp  --  *      *       0.0.0.0/0            0.0.0.0/0            length 0:27
+3        0     0 drp:invalid  sctp --  *      *       0.0.0.0/0            0.0.0.0/0            length 0:35
+
+Chain gen:tcp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 drp:invalid  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            length 0:39
+2        0     0 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+3        0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4        0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:111
+5        0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:2049
+6        0     0 tcp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain short_udp (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-vr_0-filter-short_udp>"
+2        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 125/sec burst 5
+3        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 2/min burst 1 LOG flags 0 level 6 prefix "FW ddos_log VR=0 "
+4        0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            limit: avg 12/min burst 1 LOG flags 0 level 6 prefix "FW ddos_alarm VR=0 "
+5        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain tcp:flags (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 RETURN     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x3F/0x02
+2        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x3F/0x00
+3        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x11/0x01
+4        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x03/0x03
+5        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x0A/0x0A
+6        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x22/0x22
+7        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x05/0x05
+8        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x06/0x06
+9        0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x3F/0x29
+10       0     0 drp:flags  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x3F/0x3F
+
+
+xxx===================================
+ip6tables -t filter -nvL --line-number
+Chain INPUT (policy DROP 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1      812 63864 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-vr_0-filter-INPUT>"
+2       42  3544 ACCEPT     all      adc_ipvlan0 *       ::/0                 ::/0                
+3        0     0 ACCEPT     all      eth0   *       ::/0                 ::/0                
+4        0     0 drp:bw_listed  all      *      *       ::/0                 ::/0                 match-set blacklist-vr0-ipv6 src,src
+5     2638  256K ACCEPT     all      lo     *       ::/0                 ::/0                
+6        0     0 ACCEPT     all      eth0   *       ::/0                 ::/0                 state RELATED,ESTABLISHED
+7        0     0 ACCEPT     tcp      eth0   *       ::/0                 ::/0                 tcp flags:0x3F/0x02
+8       12  1132 gen:nontcp !tcp      *      *       ::/0                 ::/0                
+9       34  2312 gen:tcp    tcp      *      *       ::/0                 ::/0                
+10       5   360 gen:icmp   icmpv6    *      *       ::/0                 ::/0                
+
+Chain FORWARD (policy DROP 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-vr_0-filter-FORWARD>"
+
+Chain OUTPUT (policy ACCEPT 809 packets, 82004 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1      809 82004 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-vr_0-filter-OUTPUT>"
+2        0     0 ACCEPT     all      *      evip_macvlan0  ::/0                 ::/0                
+3        0     0 ACCEPT     all      *      eth0    ::/0                 ::/0                
+
+Chain drp:bw_listed (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 2/min burst 5 LOG flags 0 level 4 prefix "FW IPv6 bw_listed VR=0 "
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain drp:drop (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW IPv6 dropped_pkt VR=0 "
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain drp:flags (9 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW IPv6 tcp_flags VR=0 "
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain drp:invalid (3 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 2/min burst 5 LOG flags 0 level 6 prefix "FW IPv6 invalid_pkt VR=0 "
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain drp:rate (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 drp:rate_continue  all      *      *       ::/0                 ::/0                 limit: up to 1/min burst 1 mode srcip-srcport-dstip-dstport
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain drp:rate_continue (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 5/min burst 5 LOG flags 0 level 6 prefix "FW IPv6 rate_limit VR=0 "
+2        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain gen:icmp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 ACCEPT     icmpv6    *      *       ::/0                 ::/0                 ipv6-icmptype 2
+2        1    72 ACCEPT     icmpv6    *      *       ::/0                 ::/0                 ipv6-icmptype 135
+3        4   288 ACCEPT     icmpv6    *      *       ::/0                 ::/0                 ipv6-icmptype 136
+
+Chain gen:nontcp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 drp:invalid  udp      *      *       ::/0                 ::/0                 length 0:27
+2        0     0 drp:invalid  sctp     *      *       ::/0                 ::/0                 length 0:35
+
+Chain gen:tcp (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 drp:invalid  tcp      *      *       ::/0                 ::/0                 length 0:39
+2        0     0 ACCEPT     tcp      *      *       ::/0                 ::/0                 tcp dpt:22
+3        0     0 ACCEPT     tcp      *      *       ::/0                 ::/0                 tcp dpt:111
+4        0     0 ACCEPT     tcp      *      *       ::/0                 ::/0                 tcp dpt:2049
+5       34  2312 tcp:flags  tcp      *      *       ::/0                 ::/0                
+
+Chain short_udp (0 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-vr_0-filter-short_udp>"
+2        0     0 DROP       all      *      *       ::/0                 ::/0                 limit: avg 125/sec burst 5
+3        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 2/min burst 1 LOG flags 0 level 6 prefix "FW IPv6 ddos_log VR=0 "
+4        0     0 LOG        all      *      *       ::/0                 ::/0                 limit: avg 12/min burst 1 LOG flags 0 level 6 prefix "FW IPv6 ddos_alarm VR=0 "
+5        0     0 DROP       all      *      *       ::/0                 ::/0                
+
+Chain tcp:flags (1 references)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 RETURN     tcp      *      *       ::/0                 ::/0                 tcp flags:0x3F/0x02
+2        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x3F/0x00
+3        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x11/0x01
+4        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x03/0x03
+5        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x0A/0x0A
+6        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x22/0x22
+7        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x05/0x05
+8        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x06/0x06
+9        0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x3F/0x29
+10       0     0 drp:flags  tcp      *      *       ::/0                 ::/0                 tcp flags:0x3F/0x3F
+
+
+xxx===================================
+ip netns exec alb1_fee_1 iptables -t mangle -nvL
+Chain PREROUTING (policy ACCEPT 3004 packets, 174K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 3004  174K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-PREROUTI"
+  331 46794 LWLB_CONNTRACK_FORWARDING  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           
+ 6593  373K LLB1_sel   all  --  *      *       0.0.0.0/0            0.0.0.0/0           [goto]  mark match 0x0
+
+Chain INPUT (policy ACCEPT 2953 packets, 154K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 2953  154K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-INPUT>"
+
+Chain FORWARD (policy ACCEPT 51 packets, 20556 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+   51 20556 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-FORWARD>"
+
+Chain OUTPUT (policy ACCEPT 2966 packets, 154K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 2966  154K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-OUTPUT>"
+
+Chain POSTROUTING (policy ACCEPT 3017 packets, 175K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 3017  175K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-POSTROUT"
+
+Chain HMARK_FORWARDING (0 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-HMARK_FO"
+
+Chain LLB1_dVIP (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    3   180 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-LLB1_dVI"
+   15  1044 HMARK      all  --  *      *       0.0.0.0/0            0.0.0.0/0            HMARK mod 32 + 0x800 src-prefix 32 dst-prefix 32 rnd 0xc175a3b8 
+    0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            mark match 0x0
+   15  1044 RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain LLB1_sel (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+ 2980  173K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-LLB1_sel"
+   15  1044 LLB1_dVIP  all  --  *      *       0.0.0.0/0            10.21.0.4           [goto] 
+
+Chain LWLB_CONNTRACK_FORWARDING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+   51 20556 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-mangle-LWLB_CON"
+    0     0 DROP       tcp  --  *      *       0.0.0.0/0            10.21.0.4            ctstate NEW tcp flags:!0x17/0x02
+   29  1160 CONNMARK   tcp  --  *      *       0.0.0.0/0            10.21.0.4            tcp flags:!0x17/0x02 CONNMARK restore
+    0     0 DROP       tcp  --  *      *       0.0.0.0/0            10.21.0.4            tcp flags:!0x17/0x02 mark match 0x0
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip rule
+3:	from 10.21.0.4 lookup main 
+4:	from all fwmark 0x800 lookup 2048 
+4:	from all fwmark 0x801 lookup 2049 
+4:	from all fwmark 0x802 lookup 2050 
+4:	from all fwmark 0x803 lookup 2051 
+4:	from all fwmark 0x804 lookup 2052 
+4:	from all fwmark 0x805 lookup 2053 
+4:	from all fwmark 0x806 lookup 2054 
+4:	from all fwmark 0x807 lookup 2055 
+4:	from all fwmark 0x808 lookup 2056 
+4:	from all fwmark 0x809 lookup 2057 
+4:	from all fwmark 0x80a lookup 2058 
+4:	from all fwmark 0x80b lookup 2059 
+4:	from all fwmark 0x80c lookup 2060 
+4:	from all fwmark 0x80d lookup 2061 
+4:	from all fwmark 0x80e lookup 2062 
+4:	from all fwmark 0x80f lookup 2063 
+4:	from all fwmark 0x810 lookup 2064 
+4:	from all fwmark 0x811 lookup 2065 
+4:	from all fwmark 0x812 lookup 2066 
+4:	from all fwmark 0x813 lookup 2067 
+4:	from all fwmark 0x814 lookup 2068 
+4:	from all fwmark 0x815 lookup 2069 
+4:	from all fwmark 0x816 lookup 2070 
+4:	from all fwmark 0x817 lookup 2071 
+4:	from all fwmark 0x818 lookup 2072 
+4:	from all fwmark 0x819 lookup 2073 
+4:	from all fwmark 0x81a lookup 2074 
+4:	from all fwmark 0x81b lookup 2075 
+4:	from all fwmark 0x81c lookup 2076 
+4:	from all fwmark 0x81d lookup 2077 
+4:	from all fwmark 0x81e lookup 2078 
+4:	from all fwmark 0x81f lookup 2079 
+10:	from all lookup local 
+100:	from all fwmark 0x186a1 lookup 100001 
+32766:	from all lookup main 
+32767:	from all lookup default 
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip  route show table 2048
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2049
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2050
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2051
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2052
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2053
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2054
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2055
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2056
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2057
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2058
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2059
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2060
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2061
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2062
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2063
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2064
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2065
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2066
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2067
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2068
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2069
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2070
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2071
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2072
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2073
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2074
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2075
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2076
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2077
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2078
+default dev adc_tun_1  scope link 
+ip netns exec alb1_fee_1 ip  route show table 2079
+default dev adc_tun_1  scope link 
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip6tables -t mangle -nvL
+Chain PREROUTING (policy ACCEPT 4460 packets, 340K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 4460  340K LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-PREROUT"
+   14   952 LWLB_CONNTRACK_FORWARDING  tcp      *      *       ::/0                 ::/0                
+ 9491  705K LLB1_sel   all      *      *       ::/0                 ::/0                [goto]  mark match 0x0
+
+Chain INPUT (policy ACCEPT 28 packets, 20640 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+   28 20640 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-INPUT>"
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-FORWARD"
+
+Chain OUTPUT (policy ACCEPT 31 packets, 2500 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+   31  2500 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-OUTPUT>"
+
+Chain POSTROUTING (policy ACCEPT 31 packets, 2500 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+   31  2500 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-POSTROU"
+
+Chain HMARK_FORWARDING (0 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-HMARK_F"
+
+Chain LLB1_dVIP (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-LLB1_dV"
+    0     0 HMARK      all      *      *       ::/0                 ::/0                 HMARK mod 32 + 0x800 src-prefix Minimize-Delay dst-prefix Minimize-Delay rnd 0xc175a3b8 
+    0     0 DROP       all      *      *       ::/0                 ::/0                 mark match 0x0
+    0     0 RETURN     all      *      *       ::/0                 ::/0                
+
+Chain LLB1_sel (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+ 4460  340K LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-LLB1_se"
+    0     0 LLB1_dVIP  all      *      *       ::/0                 fc00::a15:1         [goto] 
+
+Chain LWLB_CONNTRACK_FORWARDING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-mangle-LWLB_CO"
+    0     0 DROP       tcp      *      *       ::/0                 fc00::a15:1          ctstate NEW tcp flags:!0x17/0x02
+    0     0 CONNMARK   tcp      *      *       ::/0                 fc00::a15:1          tcp flags:!0x17/0x02 CONNMARK restore
+    0     0 DROP       tcp      *      *       ::/0                 fc00::a15:1          tcp flags:!0x17/0x02 mark match 0x0
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip -6 rule
+3:	from fc00::a15:1 lookup main 
+4:	from all fwmark 0x800 lookup 2048 
+4:	from all fwmark 0x801 lookup 2049 
+4:	from all fwmark 0x802 lookup 2050 
+4:	from all fwmark 0x803 lookup 2051 
+4:	from all fwmark 0x804 lookup 2052 
+4:	from all fwmark 0x805 lookup 2053 
+4:	from all fwmark 0x806 lookup 2054 
+4:	from all fwmark 0x807 lookup 2055 
+4:	from all fwmark 0x808 lookup 2056 
+4:	from all fwmark 0x809 lookup 2057 
+4:	from all fwmark 0x80a lookup 2058 
+4:	from all fwmark 0x80b lookup 2059 
+4:	from all fwmark 0x80c lookup 2060 
+4:	from all fwmark 0x80d lookup 2061 
+4:	from all fwmark 0x80e lookup 2062 
+4:	from all fwmark 0x80f lookup 2063 
+4:	from all fwmark 0x810 lookup 2064 
+4:	from all fwmark 0x811 lookup 2065 
+4:	from all fwmark 0x812 lookup 2066 
+4:	from all fwmark 0x813 lookup 2067 
+4:	from all fwmark 0x814 lookup 2068 
+4:	from all fwmark 0x815 lookup 2069 
+4:	from all fwmark 0x816 lookup 2070 
+4:	from all fwmark 0x817 lookup 2071 
+4:	from all fwmark 0x818 lookup 2072 
+4:	from all fwmark 0x819 lookup 2073 
+4:	from all fwmark 0x81a lookup 2074 
+4:	from all fwmark 0x81b lookup 2075 
+4:	from all fwmark 0x81c lookup 2076 
+4:	from all fwmark 0x81d lookup 2077 
+4:	from all fwmark 0x81e lookup 2078 
+4:	from all fwmark 0x81f lookup 2079 
+10:	from all lookup local 
+100:	from all fwmark 0x186a1 lookup 100001 
+32766:	from all lookup main 
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip -6 route show table 2048
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2049
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2050
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2051
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2052
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2053
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2054
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2055
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2056
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2057
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2058
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2059
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2060
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2061
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2062
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2063
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2064
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2065
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2066
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2067
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2068
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2069
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2070
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2071
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2072
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2073
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2074
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2075
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2076
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2077
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2078
+default dev adc_tun_1  metric 1024  pref medium
+ip netns exec alb1_fee_1 ip -6 route show table 2079
+default dev adc_tun_1  metric 1024  pref medium
+
+
+xxx===================================
+ip netns exec alb1_fee_1 iptables -nvL --line-number
+Chain INPUT (policy ACCEPT 2953 packets, 154K bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1     2953  154K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-filter-INPUT>"
+2        0     0 CONNMARK   all  --  adc_tun_1 *       0.0.0.0/0            0.0.0.0/0            ctdir ORIGINAL CONNMARK set 0x186a1
+
+Chain FORWARD (policy ACCEPT 51 packets, 20556 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1       51 20556 LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-filter-FORWARD>"
+2        0     0 CONNMARK   all  --  adc_tun_1 *       0.0.0.0/0            0.0.0.0/0            ctdir ORIGINAL CONNMARK set 0x186a1
+3        4   192 CONNMARK   tcp  --  adc_tun_1 *       0.0.0.0/0            0.0.0.0/0            tcp flags:0x12/0x12 ctdir REPLY CONNMARK set 0x186a1
+
+Chain OUTPUT (policy ACCEPT 2966 packets, 154K bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1     2966  154K LOG        all  --  *      *       0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "x<-alb1_fee_1-filter-OUTPUT>"
+
+
+xxx===================================
+ip netns exec alb1_fee_1 ip6tables -nvL --line-number
+Chain INPUT (policy ACCEPT 28 packets, 20640 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1       28 20640 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-filter-INPUT>"
+2        0     0 CONNMARK   all      adc_tun_1 *       ::/0                 ::/0                 ctdir ORIGINAL CONNMARK set 0x186a1
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1        0     0 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-filter-FORWARD"
+2        0     0 CONNMARK   all      adc_tun_1 *       ::/0                 ::/0                 ctdir ORIGINAL CONNMARK set 0x186a1
+3        0     0 CONNMARK   tcp      adc_tun_1 *       ::/0                 ::/0                 tcp flags:0x12/0x12 ctdir REPLY CONNMARK set 0x186a1
+
+Chain OUTPUT (policy ACCEPT 31 packets, 2500 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+1       31  2500 LOG        all      *      *       ::/0                 ::/0                 LOG flags 0 level 4 prefix "x<6-alb1_fee_1-filter-OUTPUT>"
+
+
